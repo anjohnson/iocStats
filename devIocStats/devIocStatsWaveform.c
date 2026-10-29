@@ -114,15 +114,8 @@ static validGetWfmParms statsGetWfmParms[] = {
     {NULL, NULL, 0}};
 
 wfdset devWaveformStats = {
-    {
-        5,
-        NULL,
-        waveform_init,
-        waveform_init_record,
-        NULL
-    },
-    waveform_read
-};
+    {5, NULL, waveform_init, waveform_init_record, NULL}, // dset common
+    waveform_read};
 epicsExportAddress(dset, devWaveformStats);
 
 /* ---------------------------------------------------------------------- */
@@ -137,7 +130,7 @@ static long waveform_init(int pass) {
 }
 
 static long waveform_init_record(struct dbCommon *pcommon) {
-  waveformRecord *pr = (waveformRecord *) pcommon;
+  waveformRecord *pr = (waveformRecord *)pcommon;
   int i;
   char *parm;
   pvtArea *pvt = NULL;

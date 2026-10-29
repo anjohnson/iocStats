@@ -289,40 +289,19 @@ static validGetParms statsGetParms[] = {
     {NULL, NULL, 0}};
 
 aidset devAiStats = {
-    {
-        6,
-        NULL,
-        ai_init,
-        ai_init_record,
-        ai_ioint_info
-    },
+    {6, NULL, ai_init, ai_init_record, ai_ioint_info}, // dset common
     ai_read,
-    NULL
-};
+    NULL};
 epicsExportAddress(dset, devAiStats);
 aodset devAoStats = {
-    {
-        6,
-        NULL,
-        NULL,
-        ao_init_record,
-        NULL
-    },
+    {6, NULL, NULL, ao_init_record, NULL}, // Functions for dset common
     ao_write,
-    NULL
-};
+    NULL};
 epicsExportAddress(dset, devAoStats);
 aidset devAiClusts = {
-    {
-        6,
-        NULL,
-        ai_clusts_init,
-        ai_clusts_init_record,
-        NULL
-    },
+    {6, NULL, ai_clusts_init, ai_clusts_init_record, NULL}, // dset common
     ai_clusts_read,
-    NULL
-};
+    NULL};
 epicsExportAddress(dset, devAiClusts);
 
 static memInfo meminfo = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -514,7 +493,7 @@ static long ai_init(int pass) {
 }
 
 static long ai_clusts_init_record(struct dbCommon *pcommon) {
-  aiRecord *pr = (aiRecord *) pcommon;
+  aiRecord *pr = (aiRecord *)pcommon;
   int elem = 0, size = 0, pool = 0, parms = 0;
   char *parm;
   pvtClustArea *pvt = NULL;
@@ -547,7 +526,7 @@ static long ai_clusts_init_record(struct dbCommon *pcommon) {
 }
 
 static long ai_init_record(struct dbCommon *pcommon) {
-  aiRecord *pr = (aiRecord *) pcommon;
+  aiRecord *pr = (aiRecord *)pcommon;
   int i;
   char *parm;
   pvtArea *pvt = NULL;
@@ -579,7 +558,7 @@ static long ai_init_record(struct dbCommon *pcommon) {
 }
 
 static long ao_init_record(struct dbCommon *pcommon) {
-  aoRecord *pr = (aoRecord *) pcommon;
+  aoRecord *pr = (aoRecord *)pcommon;
   int type;
   char *parm;
   pvtArea *pvt = NULL;
@@ -614,7 +593,7 @@ static long ao_init_record(struct dbCommon *pcommon) {
 }
 
 static long ai_ioint_info(int cmd, struct dbCommon *pcommon, IOSCANPVT *iopvt) {
-  aiRecord *pr = (aiRecord *) pcommon;
+  aiRecord *pr = (aiRecord *)pcommon;
   pvtArea *pvt = (pvtArea *)pr->dpvt;
 
   if (!pvt)

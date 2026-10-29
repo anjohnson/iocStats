@@ -183,35 +183,14 @@ static validGetStrParms statsGetStrParms[] = {
     {NULL, NULL, 0}};
 
 stringindset devStringinStats = {
-    {
-        5,
-        NULL,
-        stringin_init,
-        stringin_init_record,
-        NULL
-    },
-    stringin_read
-};
+    {5, NULL, stringin_init, stringin_init_record, NULL}, // dset common
+    stringin_read};
 stringindset devStringinEnvVar = {
-    {
-        5,
-        NULL,
-        NULL,
-        envvar_init_record,
-        NULL
-    },
-    envvar_read
-};
+    {5, NULL, NULL, envvar_init_record, NULL}, // Functions for dset common
+    envvar_read};
 stringindset devStringinEpics = {
-    {
-        5,
-        NULL,
-        NULL,
-        epics_init_record,
-        NULL
-    },
-    epics_read
-};
+    {5, NULL, NULL, epics_init_record, NULL}, // Functions for dset common
+    epics_read};
 epicsExportAddress(dset, devStringinStats);
 epicsExportAddress(dset, devStringinEnvVar);
 epicsExportAddress(dset, devStringinEpics);
@@ -238,7 +217,7 @@ static long stringin_init(int pass) {
 }
 
 static long stringin_init_record(struct dbCommon *pcommon) {
-  stringinRecord *pr = (stringinRecord *) pcommon;
+  stringinRecord *pr = (stringinRecord *)pcommon;
   int i;
   char *parm;
   pvtArea *pvt = NULL;
@@ -266,7 +245,7 @@ static long stringin_init_record(struct dbCommon *pcommon) {
 }
 
 static long envvar_init_record(struct dbCommon *pcommon) {
-  stringinRecord *pr = (stringinRecord *) pcommon;
+  stringinRecord *pr = (stringinRecord *)pcommon;
   if (pr->inp.type != INST_IO) {
     recGblRecordError(S_db_badField, (void *)pr,
                       "devStringinEnvVar (init_record) Illegal INP field");
@@ -282,7 +261,7 @@ static long envvar_init_record(struct dbCommon *pcommon) {
 }
 
 static long epics_init_record(struct dbCommon *pcommon) {
-  stringinRecord *pr = (stringinRecord *) pcommon;
+  stringinRecord *pr = (stringinRecord *)pcommon;
   long status;
   const ENV_PARAM **ppParam = env_param_list;
 
